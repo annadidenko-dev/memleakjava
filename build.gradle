@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+
+task threadLocal {
+    mainClassName = 'org.example.ThreadLocalLeakExample'
+}
+
+task eventleak {
+    mainClassName = 'org.example.EventLeakExample'
+}
+
+run {
+    mainClassName = 'org.example.CollectionMemoryLeakExample'
+    jvmArgs += [
+        '-Xmx1G',
+    ] // mem argument for the test JVM
+
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
